@@ -6,6 +6,7 @@
 package com.zaille.zark.gui;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
 
@@ -22,7 +23,7 @@ public class MainPanel extends JPanel {
     
     private void initComponents() {
         tabbedPane.add("Actions", actionPanel);
-        tabbedPane.add("Server Options", optionsPanel);
+        tabbedPane.add("Server Options", new JScrollPane(optionsPanel));
         
         add(tabbedPane, "push, grow, span");
     }
