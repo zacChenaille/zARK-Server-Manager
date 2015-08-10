@@ -5,25 +5,26 @@
  */
 package com.zaille.zark.gui;
 
-import javax.swing.JPanel;
+import com.zaille.zark.gui.controls.KPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import net.miginfocom.swing.MigLayout;
 
 /**
  *
  * @author Zac
  */
-public class MainPanel extends JPanel {
+public class MainPanel extends KPanel {
     
     public MainPanel() {
-        setLayout(new MigLayout());
+        super("");
         initComponents();
     }
     
     private void initComponents() {
         tabbedPane.add("Actions", actionPanel);
-        tabbedPane.add("Server Options", new JScrollPane(optionsPanel));
+        JScrollPane optionScroll = new JScrollPane(optionsPanel);
+        optionScroll.getVerticalScrollBar().setUnitIncrement(16);
+        tabbedPane.add("Server Options", optionScroll);
         
         add(tabbedPane, "push, grow, span");
     }
