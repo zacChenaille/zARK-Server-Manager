@@ -5,20 +5,19 @@
  */
 package com.zaille.zark.gui;
 
+import com.zaille.zark.gui.controls.KPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JPanel;
-import net.miginfocom.swing.MigLayout;
 
 /**
  *
  * @author Zac
  */
-public class ActionPanel extends JPanel {
+public class ActionPanel extends KPanel {
     
     public ActionPanel() {
-        setLayout(new MigLayout());
+        super("");
         initComponents();
     }
     

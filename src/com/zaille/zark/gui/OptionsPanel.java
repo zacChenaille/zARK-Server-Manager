@@ -5,26 +5,19 @@
  */
 package com.zaille.zark.gui;
 
-import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Table;
 import com.zaille.zark.config.ConfigManager;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.HashMap;
+import com.zaille.zark.gui.controls.KPanel;
 import java.util.Set;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import net.miginfocom.swing.MigLayout;
 
 /**
  *
  * @author Zac
  */
-public class OptionsPanel extends JPanel {
+public class OptionsPanel extends KPanel {
     
     private final ImmutableList<String> checkBoxOptions = ImmutableList.<String>of(
             "RCONEnabled",
@@ -46,17 +39,16 @@ public class OptionsPanel extends JPanel {
             "DontAlwaysNotifyPlayerJoined");
     
     public OptionsPanel() {
-        setLayout(new MigLayout());
+        super("");
         initComponents();
     }
     
     private void initComponents() {
         Set<String> categories = ConfigManager.getCategories();
         for (String category : categories) {
-            JPanel optionsPanel = new JPanel();
-            optionsPanel.setLayout(new MigLayout());
+            KPanel optionsPanel = new KPanel("");
             for (String setting : ConfigManager.getSettingsForCategory(category)) {
-                optionsPanel.add(new JLabel(setting), "span");
+                addOptionToPanel(optionsPanel, setting, ConfigManager.getValueFor(category, setting));
             }
             categoryTabs.add(category, optionsPanel);
         }
@@ -64,19 +56,18 @@ public class OptionsPanel extends JPanel {
         add(categoryTabs, "push, grow, span");
     }
 
-    private void addOptionToPanel(String setting, String value) {
+    private void addOptionToPanel(KPanel panel, String setting, String value) {
         if (checkBoxOptions.contains(setting)) {
             JCheckBox checkBox = new JCheckBox(setting);
             checkBox.setSelected(value.equalsIgnoreCase("true"));
-            add(checkBox, "span");
+            panel.add(checkBox, "span");
         } else {
             JTextField textField = new JTextField();
             textField.setText(value);
-            add(new JLabel(setting), "split 2, span");
-            add(textField, "sgx fields");
+            panel.add(setting, "align right");
+            panel.add(textField, "span");
         }
     }
     
     private final JTabbedPane categoryTabs = new JTabbedPane();
-    
 }
