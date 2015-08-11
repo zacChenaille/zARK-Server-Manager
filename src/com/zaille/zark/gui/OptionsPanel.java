@@ -7,7 +7,9 @@ package com.zaille.zark.gui;
 
 import com.google.common.collect.ImmutableList;
 import com.zaille.zark.config.ConfigManager;
+import com.zaille.zark.config.DefaultProperties;
 import com.zaille.zark.gui.controls.KPanel;
+import com.zaille.zark.gui.properties.PropertyField;
 import java.util.Set;
 import javax.swing.JCheckBox;
 import javax.swing.JTabbedPane;
@@ -44,6 +46,15 @@ public class OptionsPanel extends KPanel {
     }
     
     private void initComponents() {
+        
+        KPanel knownFieldPanel = new KPanel("");
+        for (PropertyField field : DefaultProperties.defaultFieldList) {
+            knownFieldPanel.add(field.getPropertyName(), "align right");
+            knownFieldPanel.add("=", "");
+            knownFieldPanel.add(field.getComponent(), "span");
+        }
+        add(knownFieldPanel, "pushx, growx, span");
+        
         Set<String> categories = ConfigManager.getCategories();
         for (String category : categories) {
             KPanel optionsPanel = new KPanel("");
