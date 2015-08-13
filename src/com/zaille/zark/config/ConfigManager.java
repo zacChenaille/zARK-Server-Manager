@@ -62,7 +62,7 @@ public class ConfigManager {
     
     public static void readConfiguration() {
         try {
-            FileReader reader = new FileReader("D:\\Develop\\zARK-Server-Manager-master\\GameUserSettings.ini");
+            FileReader reader = new FileReader("C:\\Users\\Garrett\\Documents\\NetBeansProjects\\zARK-Server-Manager\\GameUserSettings.ini");
             BufferedReader textReader = new BufferedReader(reader);
             
             String category = null;

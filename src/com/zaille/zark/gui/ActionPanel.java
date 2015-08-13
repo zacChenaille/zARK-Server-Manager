@@ -25,12 +25,7 @@ public class ActionPanel extends KPanel {
         startServerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String start = "SteamCmd +login anonymous +force_install_dir ..\\ArkServer +app_update 376030 +quit";
-                try {
-                    Runtime.getRuntime().exec( new String[]{start});
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                String start = "";
             }
         });
         stopServerButton.addActionListener(new ActionListener() {
@@ -42,7 +37,12 @@ public class ActionPanel extends KPanel {
         updateServerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String update = "";
+                String update = "SteamCmd +login anonymous +force_install_dir ..\\ArkServer +app_update 376030 +quit";
+                try {
+                    Runtime.getRuntime().exec( new String[]{update});
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         
