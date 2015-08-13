@@ -54,6 +54,7 @@ public class Manager extends JFrame {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, 
                     "Exception setting Nimbus L/F", e);
         }
+        ConfigManager.readZarkConfig();
         ConfigManager.readConfiguration();
         new Manager().run();
     }

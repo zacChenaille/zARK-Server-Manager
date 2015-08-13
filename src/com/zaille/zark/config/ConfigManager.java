@@ -8,8 +8,10 @@ package com.zaille.zark.config;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -19,6 +21,40 @@ import java.util.Set;
 public class ConfigManager {
     
     private static final Table<String, String, String> configs = HashBasedTable.create();
+    
+    private static String steamCmdPath;
+    private static String arkInstallPath;
+    
+    public static String getSteamCmdPath() {
+        return steamCmdPath;
+    }
+    
+    public static String getArkInstallPath() {
+        return arkInstallPath;
+    }
+    
+    public static void readZarkConfig() {
+        Properties zarkConfig = new Properties();
+        
+        FileInputStream fileInput = null;
+        try {
+            fileInput = new FileInputStream("zarkconfig.txt");
+            zarkConfig.load(fileInput);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (fileInput != null) {
+                try {fileInput.close();} catch(Exception ex) {};
+            }
+        }
+        
+        if (zarkConfig.containsKey("steam-cmd-directory")) {
+            steamCmdPath = zarkConfig.getProperty("steam-cmd-directory");
+        }
+        if (zarkConfig.containsKey("ark-directory")) {
+            arkInstallPath = zarkConfig.getProperty("ark-directory");
+        }
+    }
     
     public static void registerConfig(String category, String config) {
         if (category == null || category.isEmpty()) {
@@ -62,7 +98,7 @@ public class ConfigManager {
     
     public static void readConfiguration() {
         try {
-            FileReader reader = new FileReader("C:\\Users\\Garrett\\Documents\\NetBeansProjects\\zARK-Server-Manager\\GameUserSettings.ini");
+            FileReader reader = new FileReader("C:\\Users\\Zac\\Desktop\\GameUserSettings.ini");
             BufferedReader textReader = new BufferedReader(reader);
             
             String category = null;
